@@ -31,3 +31,7 @@ Para ejecutar esta aplicación en tu entorno local, sigue estos pasos:
 4. Inicia la aplicación:
    npx react-native run-android
    npx react-native run-ios
+
+## Información de desarrollo del proyecto
+
+La información detallada sobre el proceso de desarrollo del proyecto estará disponible en la pestaña 'Projects' del repositorio. En esta sección, se podrá acceder a un tablero organizado donde cada tarea está descrita de manera específica, explicando cómo se abordará y qué incluirá cada una. Importante destacar que, para una fácil referencia y seguimiento, cada número asignado a una tarea corresponderá a un 'commit' en el repositorio.
