@@ -8,6 +8,7 @@ export default StyleSheet.create({
         padding: 10,
         backgroundColor: '#FFFFFF',
         width: '95%',
+        height: 'auto',
         marginBottom:15
     },
     smallCard: {
