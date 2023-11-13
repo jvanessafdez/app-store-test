@@ -13,6 +13,8 @@ interface Colors {
     backgroundColorTransparent: string;
     text: string;
     textTransparent: string;
+    category2: string;
+    category3: string;
   }
   
   function addTransparentColors(baseColors: Partial<Colors>): Colors {
@@ -36,4 +38,6 @@ interface Colors {
     borderCard: "#DAE0E6",
     backgroundColor: "#FFFFFF",
     text: "#49556D",
+    category2: "#BCDAF9",
+    category3: "#DFF9D9"
   });
