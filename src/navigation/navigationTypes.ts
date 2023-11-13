@@ -5,7 +5,7 @@ import { StackNavigationProp } from '@react-navigation/stack';
 export type RootStackParamList = {
   ProductList: undefined;
   AddProduct: undefined;
-  ProductInfo: undefined;
+  ProductInfo: { id: number };
 };
 
 export type NavigationType = StackNavigationProp<RootStackParamList>;

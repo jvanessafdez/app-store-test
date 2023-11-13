@@ -1,4 +1,5 @@
 import { StyleSheet } from 'react-native';
+import { colors } from './colors';
 
 export default StyleSheet.create({
 // Layout
@@ -83,11 +84,26 @@ col: {
   title: {
     fontSize: 18,
     fontWeight: 'bold',
-    textAlign: 'center',
+    textAlign: 'left',
     width: '100%',
+    color:'#000'
   },
   titleCard: {
     fontSize: 18,
+  },
+  price: {
+    fontSize: 20,
+    fontWeight: 'bold',
+    textAlign: 'left',
+    width: '100%',
+    color: colors.primary
+  },
+  quantity: {
+    fontSize: 20,
+    fontWeight: 'bold',
+    color: colors.primary,
+    textAlign:'center',
+    marginTop:10
   },
 
   // Screen
@@ -103,4 +119,10 @@ col: {
     height: 50,
     resizeMode: 'stretch',
   },
+  detail: {
+    width: '100%',
+    height: '80%',
+    resizeMode: 'stretch',
+    alignSelf: 'center'
+  }
 });

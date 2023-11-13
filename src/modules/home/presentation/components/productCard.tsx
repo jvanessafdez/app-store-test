@@ -1,20 +1,20 @@
 import React from 'react';
 import { Image } from 'react-native';
-import { ECategory, Product } from '../../domain/product';
+import { Product } from '../../domain/product';
 import { Box, Center, Text } from 'native-base';
 import general from '../../../../assets/css/general';
-import { colors } from '../../../../assets/css/colors';
 import { Card } from '../../../../components/common/Card/card';
-import { CustomButton } from '../../../../components/common/Button/button';
-import { SmallCard } from '../../../../components/common/SmallCard/smallCard';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
+import { NavigationProp, useNavigation } from '@react-navigation/native';
+import { RootStackParamList } from '../../../../navigation/navigationTypes';
 
 interface ProductCardProps {
   product: Product;
 }
 
 export const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
+  const navigation = useNavigation<NavigationProp<RootStackParamList>>();
 
   return (
     <Center>
@@ -37,7 +37,10 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
             <Text style={general.normalText}>{product.description}</Text>
           </Box>
           <Box width={'8%'}>
-            <TouchableOpacity style={{alignSelf:'center'}}>
+            <TouchableOpacity 
+              style={{alignSelf:'center'}}
+              onPress={() => navigation.navigate('ProductInfo', {id: product.id})}
+            >
                 <MaterialIcons name = {'arrow-forward-ios'} size={18} color={'#000000'}/>
             </TouchableOpacity>
           </Box>
