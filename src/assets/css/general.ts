@@ -54,12 +54,17 @@ col: {
   marginRight10: {
     marginRight: 10,
   },
+  marginLeft20: {
+    marginLeft: 20,
+  },
   marginTop: {
     marginTop: 10,
   },
   rowMargin: {
     flexDirection: 'row',
-    marginBottom: 15,
+    margin: 10,
+    justifyContent: 'space-between',
+    alignItems: 'center',
   },
 
   // Typography
@@ -73,6 +78,7 @@ col: {
     width: '90%',
     marginEnd: 10,
     color: '#000000',
+    marginBottom:15
   },
   title: {
     fontSize: 18,
@@ -89,5 +95,12 @@ col: {
     backgroundColor: '#ffffff',
     flex: 1,
     height:'100%'
+  },
+
+  //Image
+  stretch: {
+    width: 50,
+    height: 50,
+    resizeMode: 'stretch',
   },
 });
