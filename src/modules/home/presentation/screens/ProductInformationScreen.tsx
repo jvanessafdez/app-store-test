@@ -29,8 +29,14 @@ const ProductInformationScreen: React.FC<ProductInformationScreenProps> = () => 
   const statusBarStyle = STYLES[1];
   const product = arrayProducts.find(product => product.id === route.params.id);
 
-  if (!product) {
-    return <Text>Producto no encontrado</Text>;
+  if (product === undefined) {
+    <SafeAreaView style={general.screen}>
+      <StatusBar
+        backgroundColor='transparent'
+        barStyle={statusBarStyle}
+      />
+      <Text>Producto no encontrado</Text>
+    </SafeAreaView>
   }
 
   return (
