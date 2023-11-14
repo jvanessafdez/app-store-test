@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import { SafeAreaView, StatusBar, ScrollView, Text, Touchable } from 'react-native';
 import { CustomInput } from '../../../../components/common/Input/input';
 import { Box, Center, Divider, View } from 'native-base';
@@ -13,28 +13,30 @@ import { DocumentPickerComponent } from '../../../../components/common/ImagePick
 import { useDispatch } from 'react-redux';
 import { useNavigation } from '@react-navigation/native';
 import { ECategory, Product } from '../../domain/product';
-import { addProduct } from '../../infraestructure/slices/productSlice';
+import { addProduct, addProductAsync } from '../../infraestructure/slices/productSlice';
+import { AppDispatch } from '../../../../store/store';
 
 const STYLES = ['default', 'dark-content', 'light-content'] as const;
 
 function AddProductScreen() {
   const { control, handleSubmit, formState: { errors } } = useForm();
   const [statusBarStyle, setStatusBarStyle] = STYLES[1]
-  const dispatch = useDispatch()
-  const navigation = useNavigation()       
+  const dispatch = useDispatch<AppDispatch>()
+  const navigation = useNavigation()
+  const [image, setImage] = useState('')      
 
   
   const onError = (errors: any, e: any) => console.log(errors, e);
 
   const handlePressImage = async () => {
     await DocumentPickerComponent({fileType:"images"}).then((file) => {
-      console.log(file)
+      setImage(file)
     })
   }
 
   const onSubmit = (data: Product) => {
-    const dataNew: Product = { ...data, id: 1, category: ECategory.ELEMENT, image:"https://i.ebayimg.com/thumbs/images/g/FGgAAOSwV55lBzYJ/s-l640.jpg" }
-    dispatch(addProduct(dataNew))
+    const product: Product = { ...data, category: ECategory.ELEMENT, image: image }
+    dispatch(addProductAsync(product))
     navigation.goBack()
   };  
 

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { 
   SafeAreaView,
   ScrollView,
@@ -15,7 +15,9 @@ import { ECategory, Product } from '../../domain/product';
 import { ProductCard } from '../components/productCard';
 import { CardImage } from '../components/cardImage';
 import { RootStackParamList } from '../../../../navigation/navigationTypes';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { AppDispatch } from '../../../../store/store';
+import { getProducts } from '../../infraestructure/slices/productSlice';
 
 const STYLES = ['default', 'dark-content', 'light-content'] as const;
 
@@ -23,7 +25,12 @@ function ProductListScreen() {
   const navigation = useNavigation<NavigationProp<RootStackParamList>>();
   const [category, setCategory] = useState<ECategory>(ECategory.ELEMENT);
   const statusBarStyle = STYLES[1];
-  const products = useSelector((store:any) => store.products.products)
+  const dispatch = useDispatch<AppDispatch>()
+
+  useEffect(() => {
+    dispatch(getProducts())
+  }, []);
+  const products = useSelector((store: any) => store.products.filter)
 
   return (
     <SafeAreaView style={general.screen}>
