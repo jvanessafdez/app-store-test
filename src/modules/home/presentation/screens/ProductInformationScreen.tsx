@@ -15,6 +15,9 @@ import { RootStackParamList } from '../../../../navigation/navigationTypes';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import { colors } from '../../../../assets/css/colors';
 import Geolocation from '@react-native-community/geolocation';
+import { useDispatch, useSelector } from 'react-redux';
+import { saveProduct } from '../../infraestructure/slices/productSlice';
+import { Product } from '../../domain/product';
 
 const STYLES = ['default', 'dark-content', 'light-content'] as const;
 
@@ -28,8 +31,10 @@ const ProductInformationScreen: React.FC<ProductInformationScreenProps> = () => 
   const route = useRoute<RouteProp<RootStackParamList, 'ProductInfo'>>();
   const navigation = useNavigation();
   const statusBarStyle = STYLES[1];
-  const product = arrayProducts.find(product => product.id === route.params.id);
-  const [coords, setCoords] = useState({})
+  const products = useSelector((store:any) => store.products.products)
+  const product = products.find((product: Product) => product.id === route.params.id);
+  const [coords, setCoords] = useState({latitude:0, longitude: 0})
+  const dispatch = useDispatch()
 
   useEffect(() => {
     Geolocation.getCurrentPosition(
@@ -75,7 +80,7 @@ const ProductInformationScreen: React.FC<ProductInformationScreenProps> = () => 
         <CustomButton
           text='Reservar Producto'
           width={'100%'}
-          onPress={() => {}}
+          onPress={() => dispatch(saveProduct({id: product?.id, coords}))}
         />
       </View>
     </SafeAreaView>

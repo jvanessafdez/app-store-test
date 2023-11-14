@@ -10,21 +10,33 @@ import { CustomButton } from '../../../../components/common/Button/button';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import { DocumentPickerComponent } from '../../../../components/common/ImagePicker/imagePicker';
+import { useDispatch } from 'react-redux';
+import { useNavigation } from '@react-navigation/native';
+import { ECategory, Product } from '../../domain/product';
+import { addProduct } from '../../infraestructure/slices/productSlice';
+
 const STYLES = ['default', 'dark-content', 'light-content'] as const;
 
 function AddProductScreen() {
   const { control, handleSubmit, formState: { errors } } = useForm();
   const [statusBarStyle, setStatusBarStyle] = STYLES[1]
+  const dispatch = useDispatch()
+  const navigation = useNavigation()       
 
-  const onSubmit = (data: any) => {
-    console.log(data)
-  };              
   
   const onError = (errors: any, e: any) => console.log(errors, e);
 
   const handlePressImage = async () => {
-    await DocumentPickerComponent({fileType:"images"})
+    await DocumentPickerComponent({fileType:"images"}).then((file) => {
+      console.log(file)
+    })
   }
+
+  const onSubmit = (data: Product) => {
+    const dataNew: Product = { ...data, id: 1, category: ECategory.ELEMENT, image:"https://i.ebayimg.com/thumbs/images/g/FGgAAOSwV55lBzYJ/s-l640.jpg" }
+    dispatch(addProduct(dataNew))
+    navigation.goBack()
+  };  
 
   return (
     <SafeAreaView style={general.screen}>
@@ -39,7 +51,7 @@ function AddProductScreen() {
         <Center>
           <Box width={'85%'}>
             <Text style={form.normalText}>
-              Ingrese el título de el nuevo producto 
+              Ingrese el título del nuevo producto 
             </Text>
             <CustomInput
               control={control}
@@ -63,7 +75,7 @@ function AddProductScreen() {
             <CustomInput
               control={control}
               // rules={element.required ? {required: 'Este campo es requerido'} : null}
-              name={'description'}
+              name={'price'}
               isNumeric
             />
             <Divider style={form.divider}/>
@@ -73,7 +85,7 @@ function AddProductScreen() {
             <CustomInput
               control={control}
               // rules={element.required ? {required: 'Este campo es requerido'} : null}
-              name={'description'}
+              name={'quantity'}
               isNumeric
             />
             <Divider style={form.divider}/>
@@ -87,7 +99,7 @@ function AddProductScreen() {
             </TouchableOpacity>
             <View style={{marginBottom:30}}>
             <CustomButton
-              text={'Crear Tarea'}
+              text={'Crear Producto'}
               color={colors.primary}
               radius={10}
               width={'100%'}
