@@ -6,7 +6,7 @@ interface DocumentPickerProps {
     fileType?: "docs" | "images";
 }
 
-export const DocumentPickerComponent = async ({ files, setFiles, fileType = "docs" }: DocumentPickerProps) => {
+export const DocumentPickerComponent = async ({ fileType = "docs" }: DocumentPickerProps) => {
     const types = {
         images: [
             'image/jpg',
@@ -24,9 +24,7 @@ export const DocumentPickerComponent = async ({ files, setFiles, fileType = "doc
         // Assuming that the user picks only one file, take the first one
         if (res && res[0]) {
             const file = res[0];
-            if (setFiles && files) {
-                setFiles([...files, file.uri])
-            }
+            return file.uri
         }
         
     } catch (err) {

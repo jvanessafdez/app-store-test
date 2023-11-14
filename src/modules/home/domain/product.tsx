@@ -5,11 +5,11 @@ export enum ECategory{
 }
 
 export interface Product {
-    id: number;
+    id?: number;
     title: string;
-    image: string;
+    image?: string;
     description: string;
     price: string;
     quantity: number;
-    category: ECategory;
+    category?: ECategory;
 }

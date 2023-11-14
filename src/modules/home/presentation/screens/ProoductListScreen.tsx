@@ -15,6 +15,7 @@ import { ECategory, Product } from '../../domain/product';
 import { ProductCard } from '../components/productCard';
 import { CardImage } from '../components/cardImage';
 import { RootStackParamList } from '../../../../navigation/navigationTypes';
+import { useSelector } from 'react-redux';
 
 const STYLES = ['default', 'dark-content', 'light-content'] as const;
 
@@ -22,6 +23,7 @@ function ProductListScreen() {
   const navigation = useNavigation<NavigationProp<RootStackParamList>>();
   const [category, setCategory] = useState<ECategory>(ECategory.ELEMENT);
   const statusBarStyle = STYLES[1];
+  const products = useSelector((store:any) => store.products.products)
 
   return (
     <SafeAreaView style={general.screen}>
@@ -52,7 +54,7 @@ function ProductListScreen() {
         </View>
       </View>
       <ScrollView style={{height:'67%'}}>
-        {arrayProducts.map((product: Product) =>{
+        {products.map((product: Product) =>{
           if(product.category == ECategory.ELEMENT && category == ECategory.ELEMENT){
             return <ProductCard key={product.id} product={product}/>
           }
