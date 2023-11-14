@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { 
   SafeAreaView,
   ScrollView,
@@ -14,6 +14,7 @@ import { arrayProducts } from '../../../../../mocks/elements';
 import { RootStackParamList } from '../../../../navigation/navigationTypes';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import { colors } from '../../../../assets/css/colors';
+import Geolocation from '@react-native-community/geolocation';
 
 const STYLES = ['default', 'dark-content', 'light-content'] as const;
 
@@ -28,6 +29,16 @@ const ProductInformationScreen: React.FC<ProductInformationScreenProps> = () => 
   const navigation = useNavigation();
   const statusBarStyle = STYLES[1];
   const product = arrayProducts.find(product => product.id === route.params.id);
+  const [coords, setCoords] = useState({})
+
+  useEffect(() => {
+    Geolocation.getCurrentPosition(
+      position => {
+        const { latitude, longitude } = position.coords;
+        setCoords({latitude:latitude, longitude:longitude})
+      },
+    )
+  }, [])
 
   if (product === undefined) {
     <SafeAreaView style={general.screen}>
