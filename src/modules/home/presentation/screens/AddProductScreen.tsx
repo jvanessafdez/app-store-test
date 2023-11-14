@@ -10,19 +10,11 @@ import { CustomButton } from '../../../../components/common/Button/button';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import { DocumentPickerComponent } from '../../../../components/common/ImagePicker/imagePicker';
-
 const STYLES = ['default', 'dark-content', 'light-content'] as const;
 
 function AddProductScreen() {
   const { control, handleSubmit, formState: { errors } } = useForm();
-  const date = new Date();
   const [statusBarStyle, setStatusBarStyle] = STYLES[1]
-
-  const optionsDate: { year: "numeric"; month: "long"; day: "numeric" } = {
-    year: "numeric",
-    month: "long",
-    day: "numeric",
-  };
 
   const onSubmit = (data: any) => {
     console.log(data)
