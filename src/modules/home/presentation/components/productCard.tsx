@@ -39,7 +39,7 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
           <Box width={'8%'}>
             <TouchableOpacity 
               style={{alignSelf:'center'}}
-              onPress={() => navigation.navigate('ProductInfo', {id: product.id})}
+              onPress={() => navigation.navigate('ProductInfo', {id: product.id!})}
             >
                 <MaterialIcons name = {'arrow-forward-ios'} size={18} color={'#000000'}/>
             </TouchableOpacity>

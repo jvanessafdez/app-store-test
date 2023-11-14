@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { 
   SafeAreaView,
-  ScrollView,
   StatusBar,
   Text,
   View,
@@ -10,14 +9,14 @@ import {
 import general from '../../../../assets/css/general';
 import { CustomButton } from '../../../../components/common/Button/button';
 import { RouteProp, useNavigation, useRoute } from '@react-navigation/native';
-import { arrayProducts } from '../../../../../mocks/elements';
 import { RootStackParamList } from '../../../../navigation/navigationTypes';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import { colors } from '../../../../assets/css/colors';
 import Geolocation from '@react-native-community/geolocation';
 import { useDispatch, useSelector } from 'react-redux';
-import { saveProduct } from '../../infraestructure/slices/productSlice';
+import { saveProductAsync } from '../../infraestructure/slices/productSlice';
 import { Product } from '../../domain/product';
+import { AppDispatch } from '../../../../store/store';
 
 const STYLES = ['default', 'dark-content', 'light-content'] as const;
 
@@ -34,7 +33,7 @@ const ProductInformationScreen: React.FC<ProductInformationScreenProps> = () => 
   const products = useSelector((store:any) => store.products.products)
   const product = products.find((product: Product) => product.id === route.params.id);
   const [coords, setCoords] = useState({latitude:0, longitude: 0})
-  const dispatch = useDispatch()
+  const dispatch = useDispatch<AppDispatch>()
 
   useEffect(() => {
     Geolocation.getCurrentPosition(
@@ -53,6 +52,11 @@ const ProductInformationScreen: React.FC<ProductInformationScreenProps> = () => 
       />
       <Text>Producto no encontrado</Text>
     </SafeAreaView>
+  }
+
+  const handleSave = () => {
+    dispatch(saveProductAsync({id: product?.id, quantity:product?.quantity, coords}))
+    navigation.goBack()
   }
 
   return (
@@ -80,7 +84,7 @@ const ProductInformationScreen: React.FC<ProductInformationScreenProps> = () => 
         <CustomButton
           text='Reservar Producto'
           width={'100%'}
-          onPress={() => dispatch(saveProduct({id: product?.id, coords}))}
+          onPress={handleSave}
         />
       </View>
     </SafeAreaView>
